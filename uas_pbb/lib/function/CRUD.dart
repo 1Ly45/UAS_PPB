@@ -86,3 +86,22 @@ Future<void> createOrUpdatePost(
     print('Error creating or updating document: $e');
   }
 }
+
+Future<void> deleteDocument(String documentId, String name) async {
+  CollectionReference _tugasCollection = FirebaseFirestore.instance.collection('Tugas');
+  CollectionReference _classCollection = FirebaseFirestore.instance.collection(name);
+  DocumentReference _classDocument = FirebaseFirestore.instance.collection(name).doc(documentId);
+  DocumentSnapshot classSnapshot = await _classDocument.get();
+
+
+    try {
+      if (classSnapshot.get('Tag') == "Tugas") {
+        String tugasID = classSnapshot.get('DocumentID');
+        await _tugasCollection.doc(tugasID).delete();
+      }
+      await _classCollection.doc(documentId).delete();
+      print('Document deleted successfully');
+    } catch (e) {
+      print('Error deleting document: $e');
+    }
+  }

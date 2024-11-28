@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:uas_pbb/widget/delete_confirmation.dart';
 
 Widget post_view(String className) {
   final CollectionReference _detailCollection =
@@ -67,24 +68,34 @@ class PostCard extends StatelessWidget {
                 ),
                 Spacer(),
                 // Replacing PopupMenuButton with an IconButton
-                IconButton(
-                  icon: Icon(Icons.edit),
-                  onPressed: () {
-                    // Navigate to the post screen and pass the className
-                    Navigator.pushNamed(
-                      context,
-                      '/post',  // The route name
-                      arguments: {
-                        'name': className,
-                        'Title': documentSnapshot['Title'],
-                        'Deskripsi': documentSnapshot['Deskripsi'],
-                        'Tag': documentSnapshot['Tag'],
-                        'DocumentID' :documentSnapshot.id,
-                        'Deadline': null,
-                        'Color': null,
+                Column(
+                  children: [
+                    IconButton(
+                      icon: Icon(Icons.edit),
+                      onPressed: () {
+                        // Navigate to the post screen and pass the className
+                        Navigator.pushNamed(
+                          context,
+                          '/post',  // The route name
+                          arguments: {
+                            'name': className,
+                            'Title': documentSnapshot['Title'],
+                            'Deskripsi': documentSnapshot['Deskripsi'],
+                            'Tag': documentSnapshot['Tag'],
+                            'DocumentID' :documentSnapshot.id,
+                            'Deadline': null,
+                            'Color': null,
+                          },
+                        );
                       },
-                    );
-                  },
+                    ),
+                    IconButton(
+                      icon: Icon(Icons.delete),
+                      onPressed: () {
+                        showDeleteConfirmation(context, documentSnapshot.id, className);
+                      }
+                    ),
+                  ],
                 ),
               ],
             ),
@@ -104,7 +115,7 @@ checkTag_Color(String tag) {
   } else if (tag == 'Materi') {
     return Colors.green;
   } else if (tag == 'Note') {
-    return Colors.yellow;
+    return Colors.orange;
   }
   return Colors.white;
 }

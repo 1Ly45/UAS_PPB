@@ -29,7 +29,7 @@ class _EventCalendarState extends State<EventCalendar> {
           return Appointment(
             startTime: start,
             endTime: end,
-            subject: data['Title'],
+            subject: data['Class']+": "+data['Title'],
             color: Color(int.parse(data['Color']) ), // Customize the color as needed
           );
         }).toList();
@@ -48,6 +48,9 @@ class _EventCalendarState extends State<EventCalendar> {
             height: MediaQuery.of(context).size.height / 1.3,
             child: SfCalendar(
               view: CalendarView.month,
+              monthViewSettings: MonthViewSettings(
+                appointmentDisplayMode: MonthAppointmentDisplayMode.appointment
+              ),
               dataSource: AssigmentDataSource(assignments),
             ),
           ),
