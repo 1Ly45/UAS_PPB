@@ -10,19 +10,19 @@ class ColorPicker extends StatefulWidget {
 }
 
 class _ColorPickerState extends State<ColorPicker> {
-  final List<int> colors = [
-    0xFFFF0000, // red
-    0xFF008000, // green
-    0xFF0000FF, // blue
-    0xFFFFFF00, // yellow
-    0xFFFFA500, // orange
-    0xFF800080, // purple
-    0xFFFF10F0, // pink
-    0xFFA52A2A, // brown
-    0xFF00FFFF, // cyan
-    0xFF4B0082, // indigo
+  final List<Color> colors = [
+    Colors.red,
+    Colors.green,
+    Colors.blue,
+    Colors.yellow,
+    Colors.orange,
+    Colors.purple,
+    Colors.pink,
+    Colors.brown,
+    Colors.cyan,
+    Colors.indigo
   ];
-  Color selectedColor = const Color(0xFFFF0000); // Default selected color
+  Color selectedColor = Colors.red; // Default selected color
 
   @override
   Widget build(BuildContext context) {
@@ -41,19 +41,19 @@ class _ColorPickerState extends State<ColorPicker> {
             return GestureDetector(
               onTap: () {
                 setState(() {
-                  selectedColor = Color(color); // Convert int to Color
+                  selectedColor = color; // Update the selected color
                 });
-                widget.onColorSelected(Color(color)); // Send selected color to parent
+                widget.onColorSelected(color); // Send selected color to parent
               },
               child: AnimatedContainer(
                 duration: const Duration(milliseconds: 200),
-                width: selectedColor.value == color ? 50 : 40,
-                height: selectedColor.value == color ? 50 : 40,
+                width: selectedColor == color ? 50 : 40,
+                height: selectedColor == color ? 50 : 40,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: Color(color),
+                  color: color,
                   border: Border.all(
-                    color: selectedColor.value == color ? Colors.black : Colors.grey,
+                    color: selectedColor == color ? Colors.black : Colors.grey,
                     width: 2,
                   ),
                 ),
@@ -64,4 +64,7 @@ class _ColorPickerState extends State<ColorPicker> {
       ],
     );
   }
+}
+String colorToHex(Color color) {
+  return '0x${color.value.toRadixString(16).padLeft(8, '0').toUpperCase()}';
 }

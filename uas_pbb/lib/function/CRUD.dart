@@ -1,29 +1,18 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-Future<void> createCollection(String name, String  Lecture, String Color) async {
+Future<void> createCollection(String name, String  lecture, String color) async {
   // Reference to the new Firestore collection (will be created automatically when you add data)
-  CollectionReference newCollection = FirebaseFirestore.instance.collection(name);
   CollectionReference _classCollection = FirebaseFirestore.instance.collection('Class');
 
   // Data for the document
   Map<String, dynamic> documentData = {
-    'Title': 'Class Created',
-    'Deskripsi': '',
-    'Tag': 'start',
-    'Tanggal_Upload': FieldValue.serverTimestamp(),
-  };
-  // Data for the document
-  Map<String, dynamic> documentData2 = {
     'Name':name,
-    'Lecture': Lecture,
-    'Color': Color,
+    'Lecture': lecture,
+    'Color': color,
   };
 
   try {
-    // Adding a document to the collection. Firestore will create the collection if it doesn't exist.
-    await newCollection.add(documentData);
-    print('Document added to new collection successfully!');
-    await _classCollection.add(documentData2);
+    await _classCollection.add(documentData);
     print('Document added to new collection successfully!');
   } catch (e) {
     print('Error adding document: $e');

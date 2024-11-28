@@ -135,7 +135,7 @@ class PostPageState extends State<PostPage> {
                   ColorPicker(
                     onColorSelected: (color) {
                       setState(() {
-                        selectedColor = color.toString();
+                        selectedColor = colorToHex(color);
                       });
                     },
                   ),

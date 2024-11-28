@@ -18,7 +18,7 @@ Widget post_view(String className) {
         return Center(child: Text('Error: ${streamSnapshot.error}'));
       } else if (streamSnapshot.hasData) {
         if (streamSnapshot.data!.docs.isEmpty) {
-          return const Center(child: Text('No data available'));
+          return const Center(child: Text('No one post anything yet'));
         }
         return Expanded(
           child: ListView.builder(

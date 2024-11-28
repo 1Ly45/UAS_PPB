@@ -33,7 +33,6 @@ showModalBottomSheetExample(BuildContext context) {
 
                   // Text Field for Lecture
                   TextField(
-                    keyboardType: TextInputType.numberWithOptions(decimal: true),
                     controller: _lectureController,
                     decoration: const InputDecoration(labelText: 'Lecture'),
                   ),
@@ -41,7 +40,7 @@ showModalBottomSheetExample(BuildContext context) {
                 ColorPicker(
                     onColorSelected: (color) {
                       setState(() {
-                        selectedColor = color.toString(); // Update selected color
+                        selectedColor = colorToHex(color);
                       });
                     },
                   ),
