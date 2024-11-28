@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:uas_pbb/firebase_options.dart';
 import 'package:uas_pbb/pages/assignment_page.dart';
+import 'package:uas_pbb/pages/authCheck.dart';
 import 'package:uas_pbb/pages/class_detail_page.dart';
 import 'package:uas_pbb/pages/dashboard_page.dart';
 import 'package:uas_pbb/pages/post_page.dart';
@@ -25,7 +26,8 @@ class MainApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       initialRoute: '/',
       routes: {
-        '/': (context) => HomePage(),
+        '/': (context) => AuthCheck(),
+        '/home': (context) => HomePage(),
         '/post': (context) => PostPage(),
         '/class_detail': (context) => ClassDetail(),
         '/assignment': (context) => AssignmentPage(),
