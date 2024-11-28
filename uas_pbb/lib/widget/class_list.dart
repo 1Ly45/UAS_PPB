@@ -54,6 +54,5 @@ Widget class_view() {
 
 _colorHex(String hex) {
   String colorhex = hex;
-  print(colorhex);
   return int.parse(colorhex);
 }

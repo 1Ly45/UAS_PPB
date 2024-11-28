@@ -36,6 +36,7 @@ Future<void> createOrUpdatePost(
   String deskripsi, 
   String tag, 
   Timestamp? deadline, 
+  Timestamp? tanggal_upload,
   String? color,
   String? documentId
 ) async {
@@ -47,11 +48,11 @@ Future<void> createOrUpdatePost(
   Map<String, dynamic> documentData = {
     'Title': title,
     'Deskripsi': deskripsi,
-    'Tanggal_Upload': FieldValue.serverTimestamp(),
   };
 
   try {
     if (documentId != null) {
+      documentData['Tanggal_Upload'] = tanggal_upload;
       // If documentId is provided, update the existing document
       if (tag == "Tugas") {
         documentData['Tanggal_Deadline'] = deadline;
@@ -69,6 +70,7 @@ Future<void> createOrUpdatePost(
       print('Document updated successfully!');
     } else {
       // If no documentId, add a new document
+      documentData['Tanggal_Upload']= FieldValue.serverTimestamp();
       if (tag == "Tugas") {
         documentData['Tanggal_Deadline'] = deadline;
         documentData['Color'] = color;

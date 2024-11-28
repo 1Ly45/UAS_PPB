@@ -73,6 +73,12 @@ class PostCard extends StatelessWidget {
                     IconButton(
                       icon: Icon(Icons.edit),
                       onPressed: () {
+                        Timestamp? docDeadline = null;
+                        String? docColor;
+                        if(documentSnapshot['Tag'] == "Tugas"){
+                          docDeadline = documentSnapshot['Tanggal_Deadline'];
+                          docColor = documentSnapshot['Color'];
+                        }
                         // Navigate to the post screen and pass the className
                         Navigator.pushNamed(
                           context,
@@ -83,8 +89,9 @@ class PostCard extends StatelessWidget {
                             'Deskripsi': documentSnapshot['Deskripsi'],
                             'Tag': documentSnapshot['Tag'],
                             'DocumentID' :documentSnapshot.id,
-                            'Deadline': null,
-                            'Color': null,
+                            'Deadline': docDeadline,
+                            'Tanggal_Upload': documentSnapshot['Tanggal_Upload'],
+                            'Color': docColor,
                           },
                         );
                       },

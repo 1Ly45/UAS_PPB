@@ -20,6 +20,7 @@ class PostPageState extends State<PostPage> {
   final TextEditingController _deadlineController = TextEditingController();
   String? selectedColor;
   Timestamp? deadline;
+  Timestamp? tanggal_upload;
   String? documentID;
 
   @override
@@ -45,10 +46,13 @@ class PostPageState extends State<PostPage> {
                 : '';
             selectedColor = args['Color'];
             deadline = args['Deadline'];
+            tanggal_upload = args["Tanggal_Upload"];
+
+            print(selectedColor);
+            print(args['Deadline']);
+            print(tanggal_upload);
           }
 
-          // Debugging: Log the initial state
-          print("PostPageState initialized with selectedTag: $selectedTag");
         });
       }
     });
@@ -56,9 +60,6 @@ class PostPageState extends State<PostPage> {
 
   @override
   Widget build(BuildContext context) {
-    // Debugging: Log the current selectedTag when building the widget
-    print("build - SelectedTag: $selectedTag");
-
     final List<String> tags = ['Tugas', 'Materi', 'Note'];
 
     return Scaffold(
@@ -134,7 +135,7 @@ class PostPageState extends State<PostPage> {
                   ColorPicker(
                     onColorSelected: (color) {
                       setState(() {
-                        selectedColor = colorToHex(color);
+                        selectedColor = color.toString();
                       });
                     },
                   ),
@@ -162,6 +163,7 @@ class PostPageState extends State<PostPage> {
                             _deskripsiController.text,
                             selectedTag,
                             deadline,
+                            tanggal_upload,
                             selectedColor,
                             documentID
                           );

@@ -43,6 +43,7 @@ FloatingActionButton addPost(BuildContext context, String pushName) {
           'Tag': '', // Default empty string for Tag
           'DocumentID' : null, // Default empty string for DocumentID
           'Deadline': null, // Default null if no deadline
+          'Tanggal_Upload': null, // Default null if no deadline
           'Color': null, // Default null for Color
         }
       );

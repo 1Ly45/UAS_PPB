@@ -41,7 +41,7 @@ showModalBottomSheetExample(BuildContext context) {
                 ColorPicker(
                     onColorSelected: (color) {
                       setState(() {
-                        selectedColor = colorToHex(color); // Update selected color
+                        selectedColor = color.toString(); // Update selected color
                       });
                     },
                   ),
