@@ -1,4 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:uas_pbb/function/auth.dart';
+
 
 Future<void> createCollection(String name, String  lecture, String color) async {
   // Reference to the new Firestore collection (will be created automatically when you add data)
@@ -31,10 +34,12 @@ Future<void> createOrUpdatePost(
 ) async {
   // Reference to the Firestore collection
   CollectionReference _classCollection = FirebaseFirestore.instance.collection(name);
+  final User? user = Auth().currentUser;
 
 
   // Data for the document
   Map<String, dynamic> documentData = {
+    'Poster': user?.email,
     'Title': title,
     'Deskripsi': deskripsi,
   };

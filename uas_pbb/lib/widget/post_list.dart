@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:uas_pbb/function/auth.dart';
 import 'package:uas_pbb/widget/delete_confirmation.dart';
 
 Widget post_view(String className) {
@@ -40,78 +42,49 @@ Widget post_view(String className) {
 class PostCard extends StatelessWidget {
   final DocumentSnapshot documentSnapshot;
   final String className;
+  final User? user = Auth().currentUser;
 
   PostCard(this.documentSnapshot, this.className);
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      color: checkTag_Color(documentSnapshot['Tag'] ?? Colors.grey),
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
+    return Column(
+      children: [
+        userPoster(documentSnapshot, user, context, className),
+        Card(
+          color: checkTag_Color(documentSnapshot['Tag'] ?? Colors.grey),
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Icon(checkTag_Icon(documentSnapshot['Tag']) ?? Icons.adjust),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(documentSnapshot['Title'] ?? ''),
-                      Text(timetoString(documentSnapshot['Tanggal_Upload']) ??
-                          ''),
-                    ],
-                  ),
-                ),
-                Spacer(),
-                // Replacing PopupMenuButton with an IconButton
-                Column(
+                Row(
                   children: [
-                    IconButton(
-                      icon: Icon(Icons.edit),
-                      onPressed: () {
-                        Timestamp? docDeadline = null;
-                        String? docColor;
-                        if(documentSnapshot['Tag'] == "Tugas"){
-                          docDeadline = documentSnapshot['Tanggal_Deadline'];
-                          docColor = documentSnapshot['Color'];
-                        }
-                        // Navigate to the post screen and pass the className
-                        Navigator.pushNamed(
-                          context,
-                          '/post',  // The route name
-                          arguments: {
-                            'name': className,
-                            'Title': documentSnapshot['Title'],
-                            'Deskripsi': documentSnapshot['Deskripsi'],
-                            'Tag': documentSnapshot['Tag'],
-                            'DocumentID' :documentSnapshot.id,
-                            'Deadline': docDeadline,
-                            'Tanggal_Upload': documentSnapshot['Tanggal_Upload'],
-                            'Color': docColor,
-                          },
-                        );
-                      },
+                    Icon(checkTag_Icon(documentSnapshot['Tag']) ?? Icons.adjust),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(documentSnapshot['Title'] ?? ''),
+                          Text(timetoString(documentSnapshot['Tanggal_Upload']) ??
+                              ''),
+                        ],
+                      ),
                     ),
-                    IconButton(
-                      icon: Icon(Icons.delete),
-                      onPressed: () {
-                        showDeleteConfirmation(context, documentSnapshot.id, className);
-                      }
-                    ),
+                    Spacer(),
+                    // Replacing PopupMenuButton with an IconButton
+                    
                   ],
                 ),
+                Text(documentSnapshot['Deskripsi'] ?? ''),
+                if (documentSnapshot['Tag'] == 'Tugas')
+                  deadline(documentSnapshot['Tanggal_Deadline'])
               ],
             ),
-            Text(documentSnapshot['Deskripsi'] ?? ''),
-            if (documentSnapshot['Tag'] == 'Tugas')
-              deadline(documentSnapshot['Tanggal_Deadline'])
-          ],
+          ),
         ),
-      ),
+      ],
     );
   }
 }
@@ -140,7 +113,7 @@ checkTag_Icon(String tag) {
 
 timetoString(Timestamp timestamp) {
   DateTime dateTime = timestamp.toDate();
-  return DateFormat('MMM dd').format(dateTime);
+  return DateFormat('MMM dd, hh:mm').format(dateTime);
 }
 
 Widget deadline(Timestamp? dl) {
@@ -148,5 +121,90 @@ Widget deadline(Timestamp? dl) {
     return Text("This assessment has no Deadline");
   } else {
     return Text("Deadline: ${timetoString(dl)}");
+  }
+}
+
+Widget userPoster(DocumentSnapshot documentSnapshot, User? user, BuildContext context, String className){
+  if (user?.email == documentSnapshot['Poster']) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          Icon(Icons.account_box),
+          Text(documentSnapshot['Poster']??"User"),
+          ElevatedButton(
+            onPressed: () {
+              showModalBottomSheet(
+                context: context,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.vertical(top: Radius.circular(15)),
+                ),
+                builder: (BuildContext context) {
+                  return Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        ListTile(
+                          leading: Icon(Icons.edit),
+                          title: Text("Edit"),
+                          onTap: () {
+                            // Your edit logic here
+                            Navigator.pop(context); // Close the bottom sheet
+                            Timestamp? docDeadline = null;
+                            String? docColor;
+                            if(documentSnapshot['Tag'] == "Tugas"){
+                              docDeadline = documentSnapshot['Tanggal_Deadline'];
+                              docColor = documentSnapshot['Color'];
+                            }
+                            // Navigate to the post screen and pass the className
+                            Navigator.pushNamed(
+                              context,
+                              '/post',  // The route name
+                              arguments: {
+                                'name': className,
+                                'Title': documentSnapshot['Title'],
+                                'Deskripsi': documentSnapshot['Deskripsi'],
+                                'Tag': documentSnapshot['Tag'],
+                                'DocumentID' :documentSnapshot.id,
+                                'Deadline': docDeadline,
+                                'Tanggal_Upload': documentSnapshot['Tanggal_Upload'],
+                                'Color': docColor,
+                              },
+                            );
+                          },
+                        ),
+                        ListTile(
+                          leading: Icon(Icons.delete),
+                          title: Text("Delete"),
+                          onTap: () {
+                            // Your delete logic here
+                            Navigator.pop(context); // Close the bottom sheet
+                            showDeleteConfirmation(context, documentSnapshot.id, className);
+                          },
+                        ),
+                      ],
+                    ),
+                  );
+                },
+              );
+            },
+            child: Icon(Icons.more_vert),
+          )
+        ]
+      ),
+    );
+  }else{
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Icon(Icons.account_box),
+          Text(documentSnapshot['Poster']??"User"),
+        ]
+      ),
+    );
   }
 }

@@ -18,7 +18,16 @@ class AssignmentPageState extends State<AssignmentPage> {
     return Scaffold(
       key: _scaffoldKey, // Assign the key to Scaffold
       appBar: AppBar(
-        title: const Text("PTIK Class List"),
+        title: const Text("Assigment List"),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
+            child: IconButton(icon: Icon(Icons.home), onPressed: () {
+              Navigator.pushNamed(context, 
+              '/');
+            }),
+          )
+        ],
       ),
       drawer:EventCalendar(),
       body: SafeArea(
