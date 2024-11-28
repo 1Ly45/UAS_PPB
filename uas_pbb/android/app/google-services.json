@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "461905826629",
+    "project_id": "uas-pbb-95513",
+    "storage_bucket": "uas-pbb-95513.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:461905826629:android:96ce0536b303b106c9e42c",
+        "android_client_info": {
+          "package_name": "com.example.uas_pbb"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBfRiPGnQR0jTSPUhqB8zONFGUO0WurkOE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:461905826629:android:31753fbf7e82ae4fc9e42c",
+        "android_client_info": {
+          "package_name": "com.uas_pbb.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBfRiPGnQR0jTSPUhqB8zONFGUO0WurkOE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
