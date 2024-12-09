@@ -26,6 +26,7 @@ Future<void> createOrUpdatePost(
   String name, 
   String title, 
   String deskripsi, 
+  String link,
   String tag, 
   Timestamp? deadline, 
   Timestamp? tanggal_upload,
@@ -42,6 +43,7 @@ Future<void> createOrUpdatePost(
     'Poster': user?.email,
     'Title': title,
     'Deskripsi': deskripsi,
+    'Link' : link,
   };
 
   try {

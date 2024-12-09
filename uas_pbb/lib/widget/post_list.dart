@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:uas_pbb/function/auth.dart';
 import 'package:uas_pbb/widget/delete_confirmation.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 Widget post_view(String className) {
   final CollectionReference _detailCollection =
@@ -78,6 +79,13 @@ class PostCard extends StatelessWidget {
                   ],
                 ),
                 Text(documentSnapshot['Deskripsi'] ?? ''),
+                if (documentSnapshot['Link'] != null && documentSnapshot['Link'].toString().trim().isNotEmpty) 
+                 ElevatedButton(
+                    onPressed: () {
+                      launchUrl(Uri.parse(documentSnapshot['Link']));
+                    },
+                    child: Text(documentSnapshot['Link']),
+                  ),
                 if (documentSnapshot['Tag'] == 'Tugas')
                   deadline(documentSnapshot['Tanggal_Deadline'])
               ],

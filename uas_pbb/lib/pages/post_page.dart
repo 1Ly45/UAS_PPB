@@ -18,6 +18,7 @@ class PostPageState extends State<PostPage> {
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _deskripsiController = TextEditingController();
   final TextEditingController _deadlineController = TextEditingController();
+  final TextEditingController _linkController = TextEditingController();
   String? selectedColor;
   Timestamp? deadline;
   Timestamp? tanggal_upload;
@@ -119,6 +120,14 @@ class PostPageState extends State<PostPage> {
                   ),
                 ),
                 const SizedBox(height: 10),
+                 TextField(
+                  controller: _linkController,
+                  decoration: const InputDecoration(
+                    labelText: 'Link',
+                    border: OutlineInputBorder(),
+                  ),
+                ),
+                const SizedBox(height: 10),
 
                 // Show the deadline picker and color picker if the tag is 'Tugas'
                 if (selectedTag == 'Tugas') ...[
@@ -149,11 +158,10 @@ class PostPageState extends State<PostPage> {
                     child: ElevatedButton(
                       onPressed: () async {
                         if (selectedTag.isEmpty ||
-                            _titleController.text.isEmpty ||
-                            _deskripsiController.text.isEmpty) {
+                            _titleController.text.isEmpty) {
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
-                              content: Text('Please fill all fields'),
+                              content: Text('Please fill tag and  title'),
                             ),
                           );
                         } else {
@@ -161,6 +169,7 @@ class PostPageState extends State<PostPage> {
                             _name,  // Use name
                             _titleController.text,
                             _deskripsiController.text,
+                            _linkController.text,
                             selectedTag,
                             deadline,
                             tanggal_upload,
