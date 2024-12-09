@@ -16,6 +16,15 @@ class ClassDetailState extends State<ClassDetail> {
     return Scaffold(
       appBar: AppBar(
         title: Text(name),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
+            child: IconButton(icon: Icon(Icons.home), onPressed: () {
+              Navigator.pushNamed(context, 
+              '/');
+            }),
+          )
+        ],
       ),
       drawer: EventCalendar(),
       body: SafeArea(

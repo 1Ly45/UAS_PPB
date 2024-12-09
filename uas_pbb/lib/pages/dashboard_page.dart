@@ -1,10 +1,12 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:uas_pbb/widget/class_list.dart';
 import 'package:uas_pbb/widget/bottomSheet.dart';
+import 'package:uas_pbb/function/auth.dart';
 import 'package:uas_pbb/widget/event_calendar.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+  HomePage({Key? key}) : super(key: key);
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -13,6 +15,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   // Create a GlobalKey to maintain the Scaffold state
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  final User? user = Auth().currentUser;
 
   @override
   Widget build(BuildContext context) {
@@ -20,6 +23,13 @@ class _HomePageState extends State<HomePage> {
       key: _scaffoldKey, // Assign the key to Scaffold
       appBar: AppBar(
         title: const Text("PTIK Class List"),
+        actions: [
+          Text(user?.email ?? 'User email'),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+            child: _signOutButton(),
+          ),
+        ]
       ),
       drawer: EventCalendar(),
       body: SafeArea(
@@ -42,5 +52,16 @@ FloatingActionButton addClass(BuildContext context) {
       showModalBottomSheetExample(context);
     },
     child: Icon(Icons.add),
+  );
+}
+
+
+Widget _signOutButton() {
+  Future<void> signOut() async {
+    await Auth().signOut();
+  }
+  return ElevatedButton(
+    onPressed: signOut,
+    child: const Text("Sign Out"),
   );
 }
