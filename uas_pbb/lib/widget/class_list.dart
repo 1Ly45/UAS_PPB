@@ -23,22 +23,47 @@ Widget class_view() {
             itemBuilder: (context, index) {
               final DocumentSnapshot documentSnapshot = streamSnapshot.data!.docs[index];     
               return Padding(
-                padding: const EdgeInsets.fromLTRB(5, 5, 5, 0), // Padding around the button
-                child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/class_detail',
-                    arguments: documentSnapshot['Name']);
-                  },
-                  child: ListTile(
-                    title: Text(documentSnapshot['Name'] ?? 'No Name'),
-                    subtitle: Text(documentSnapshot['Lecture'] ?? 'No Lecture'),
+                padding: const EdgeInsets.fromLTRB(20, 15, 20, 0), // Padding around the button
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.transparent,
+                    borderRadius: BorderRadius.circular(20),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.2),
+                        blurRadius: 10,
+                        offset: const Offset(0, 4),
+                      )
+                    ]
                   ),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Color(_colorHex(documentSnapshot['Color'])),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10), // Less round (change the value to adjust the roundness)
+                  height: 170,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/class_detail',
+                      arguments: documentSnapshot['Name']);
+                    },
+                    child: ListTile(
+                      title: Text(documentSnapshot['Name'] ?? 'No Name',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 25,
+                      ),
+                      ),
+                      subtitle: Text(documentSnapshot['Lecture'] ?? 'No Lecture',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.normal,
+                        fontSize: 15,
+                      )),
                     ),
-                    padding: EdgeInsets.all(0), // No extra padding around button content
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Color(_colorHex(documentSnapshot['Color'])),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20), // Less round (change the value to adjust the roundness)
+                      ),
+                      padding: EdgeInsets.all(0), // No extra padding around button content
+                    ),
                   ),
                 ),
               );

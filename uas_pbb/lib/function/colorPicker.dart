@@ -11,16 +11,16 @@ class ColorPicker extends StatefulWidget {
 
 class _ColorPickerState extends State<ColorPicker> {
   final List<Color> colors = [
-    Colors.red,
-    Colors.green,
-    Colors.blue,
+    const Color.fromARGB(255, 245, 149, 142),
+    const Color.fromARGB(255, 100, 220, 104),
+    const Color.fromARGB(255, 112, 177, 229),
     Colors.yellow,
-    Colors.orange,
-    Colors.purple,
-    Colors.pink,
-    Colors.brown,
+    const Color.fromARGB(255, 241, 175, 77),
+    const Color.fromARGB(255, 208, 91, 228),
+    const Color.fromARGB(255, 226, 87, 133),
+    const Color.fromARGB(255, 151, 94, 73),
     Colors.cyan,
-    Colors.indigo
+    const Color.fromARGB(255, 92, 114, 238)
   ];
   Color selectedColor = Colors.red; // Default selected color
 

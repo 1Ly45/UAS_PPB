@@ -22,7 +22,10 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       key: _scaffoldKey, // Assign the key to Scaffold
       appBar: AppBar(
-        title: const Text("PTIK Class List"),
+        // backgroundColor: Colors.,
+        elevation: 5.0,
+        shadowColor: Colors.grey.withOpacity(0.5),
+        title: const Text("TASKMATE"),
         actions: [
           Text(user?.email ?? 'User email'),
           Padding(

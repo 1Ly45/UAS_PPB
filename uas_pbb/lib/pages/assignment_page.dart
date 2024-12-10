@@ -18,6 +18,8 @@ class AssignmentPageState extends State<AssignmentPage> {
     return Scaffold(
       key: _scaffoldKey, // Assign the key to Scaffold
       appBar: AppBar(
+        elevation: 5.0,
+        shadowColor: Colors.grey.withOpacity(0.5),
         title: const Text("Assigment List"),
         actions: [
           Padding(

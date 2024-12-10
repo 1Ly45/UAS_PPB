@@ -16,9 +16,11 @@ class ClassDetailState extends State<ClassDetail> {
     return Scaffold(
       appBar: AppBar(
         title: Text(name),
+        elevation: 5.0,
+        shadowColor: Colors.grey.withOpacity(0.5),
         actions: [
           Padding(
-            padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
+            padding: const EdgeInsets.fromLTRB(20, 15, 20, 0),
             child: IconButton(icon: Icon(Icons.home), onPressed: () {
               Navigator.pushNamed(context, 
               '/');

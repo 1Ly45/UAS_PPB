@@ -21,7 +21,12 @@ Widget post_view(String className) {
         return Center(child: Text('Error: ${streamSnapshot.error}'));
       } else if (streamSnapshot.hasData) {
         if (streamSnapshot.data!.docs.isEmpty) {
-          return const Center(child: Text('No one post anything yet'));
+          return const Center(child: Text('No one post anything yet', 
+          style: TextStyle(
+            fontSize: 25.0,
+          )
+          )
+          );
         }
         return Expanded(
           child: ListView.builder(
@@ -67,9 +72,19 @@ class PostCard extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(documentSnapshot['Title'] ?? ''),
+                          Text(documentSnapshot['Title'] ?? '', 
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 20,
+                          ),
+                          ),
                           Text(timetoString(documentSnapshot['Tanggal_Upload']) ??
-                              ''),
+                              '', 
+                              style: TextStyle(
+                                color: Colors.white70,
+                                fontSize: 15,
+                                
+                              ) ),
                         ],
                       ),
                     ),
@@ -78,7 +93,10 @@ class PostCard extends StatelessWidget {
                     
                   ],
                 ),
-                Text(documentSnapshot['Deskripsi'] ?? ''),
+                Text(documentSnapshot['Deskripsi'] ?? '', 
+                style: TextStyle(
+                  // color: Colors.white60,
+                )),
                 if (documentSnapshot['Link'] != null && documentSnapshot['Link'].toString().trim().isNotEmpty) 
                  ElevatedButton(
                     onPressed: () {
@@ -99,11 +117,11 @@ class PostCard extends StatelessWidget {
 
 checkTag_Color(String tag) {
   if (tag == 'Tugas') {
-    return Colors.indigo;
+    return const Color.fromARGB(255, 125, 170, 206);
   } else if (tag == 'Materi') {
-    return Colors.green;
+    return const Color.fromARGB(255, 115, 208, 118);
   } else if (tag == 'Note') {
-    return Colors.orange;
+    return const Color.fromARGB(255, 233, 160, 49);
   }
   return Colors.white;
 }
@@ -128,7 +146,11 @@ Widget deadline(Timestamp? dl) {
   if (dl == null) {
     return Text("This assessment has no Deadline");
   } else {
-    return Text("Deadline: ${timetoString(dl)}");
+    return Text("Deadline: ${timetoString(dl)}", 
+    style: TextStyle(
+      color: Colors.red,
+    )
+    );
   }
 }
 

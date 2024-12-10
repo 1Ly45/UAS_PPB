@@ -64,7 +64,10 @@ class PostPageState extends State<PostPage> {
     final List<String> tags = ['Tugas', 'Materi', 'Note'];
 
     return Scaffold(
-      appBar: AppBar(title: Text("Post In " + _name)),
+      appBar: AppBar(title: Text("Post In " + _name), 
+      elevation: 5.0,
+      shadowColor: Colors.grey.withOpacity(0.5)
+      ),
       drawer: EventCalendar(),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -86,7 +89,7 @@ class PostPageState extends State<PostPage> {
                       title: Text(tag),
                       value: tag,
                       groupValue: selectedTag, // Ensures the value is bound to selectedTag
-                      activeColor: selectedTag == tag ? Colors.green : Colors.blue, // Color changes based on selected tag
+                      activeColor: selectedTag == tag ? Colors.green : const Color.fromARGB(255, 197, 218, 236), // Color changes based on selected tag
                       onChanged: (String? value) {
                         // Update selectedTag when a new value is selected
                         setState(() {
