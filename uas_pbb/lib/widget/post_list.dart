@@ -67,30 +67,29 @@ class PostCard extends StatelessWidget {
                 Row(
                   children: [
                     Icon(checkTag_Icon(documentSnapshot['Tag']) ?? Icons.adjust),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
+                    const SizedBox(width: 8.0), // Add spacing between the icon and the text
+                    Expanded( // Use Expanded to allocate space for the Column
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(documentSnapshot['Title'] ?? '', 
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 20,
+                          Text(
+                            documentSnapshot['Title'] ?? '',
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 18,
+                            ),
+                            maxLines: 2,
                           ),
+                          Text(
+                            timetoString(documentSnapshot['Tanggal_Upload']) ?? '',
+                            style: const TextStyle(
+                              color: Colors.white70,
+                              fontSize: 15,
+                            ),
                           ),
-                          Text(timetoString(documentSnapshot['Tanggal_Upload']) ??
-                              '', 
-                              style: TextStyle(
-                                color: Colors.white70,
-                                fontSize: 15,
-                                
-                              ) ),
                         ],
                       ),
                     ),
-                    Spacer(),
-                    // Replacing PopupMenuButton with an IconButton
-                    
                   ],
                 ),
                 Text(documentSnapshot['Deskripsi'] ?? '', 
@@ -98,12 +97,25 @@ class PostCard extends StatelessWidget {
                   // color: Colors.white60,
                 )),
                 if (documentSnapshot['Link'] != null && documentSnapshot['Link'].toString().trim().isNotEmpty) 
-                 ElevatedButton(
-                    onPressed: () {
-                      launchUrl(Uri.parse(documentSnapshot['Link']));
-                    },
-                    child: Text(documentSnapshot['Link']),
+                 ElevatedButton.icon(
+                  onPressed: () {
+                    launchUrl(Uri.parse(documentSnapshot['Link']));
+                  },
+                  icon: Icon(Icons.link, color: Colors.white), // Add an icon to the button
+                  label: Text(
+                    "Open Link", // Custom label text
+                    style: TextStyle(fontWeight: FontWeight.bold),
                   ),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.blueAccent, // Customize button color
+                    foregroundColor: Colors.white, // Customize text/icon color
+                    padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 10.0), // Adjust padding
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8.0), // Add rounded corners
+                    ),
+                  ),
+                ),
+
                 if (documentSnapshot['Tag'] == 'Tugas')
                   deadline(documentSnapshot['Tanggal_Deadline'])
               ],
