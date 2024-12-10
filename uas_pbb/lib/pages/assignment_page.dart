@@ -20,7 +20,10 @@ class AssignmentPageState extends State<AssignmentPage> {
       appBar: AppBar(
         elevation: 5.0,
         shadowColor: Colors.grey.withOpacity(0.5),
-        title: const Text("Assigment List"),
+        title: const Text("Assigment List", style: TextStyle(
+          fontWeight: FontWeight.bold,
+        ),
+        ),
         actions: [
           Padding(
             padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),

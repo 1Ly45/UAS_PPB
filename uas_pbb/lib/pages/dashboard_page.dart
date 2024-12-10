@@ -25,7 +25,10 @@ class _HomePageState extends State<HomePage> {
         // backgroundColor: Colors.,
         elevation: 5.0,
         shadowColor: Colors.grey.withOpacity(0.5),
-        title: const Text("TASKMATE"),
+        title: const Text("TASKMATE", 
+        style: TextStyle(
+          fontWeight: FontWeight.bold,
+        )),
         actions: [
           Text(user?.email ?? 'User email'),
           Padding(

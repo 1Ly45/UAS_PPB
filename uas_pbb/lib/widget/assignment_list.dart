@@ -50,7 +50,10 @@ class PostCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("Class: "+documentSnapshot['Class']),
+            Text("Class: "+documentSnapshot['Class'],
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+            ),),
             Row(
               children: [
                 Icon(Icons.assignment),
@@ -106,6 +109,8 @@ Widget deadline(Timestamp? dl) {
   if (dl == null) {
     return Text("This assessment has no Deadline");
   } else {
-    return Text("Deadline: ${timetoString(dl)}");
+    return Text("Deadline: ${timetoString(dl)}", style: TextStyle(
+      color: Colors.red,
+    ),);
   }
 }
